@@ -1,3 +1,7 @@
+# Capturas de Pantalla
+
+![Captura del proyecto](src/app/assets/01-local.png)
+
 # PpwAngularPractica
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
