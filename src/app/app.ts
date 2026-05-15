@@ -1,28 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppHeader } from "./components/app-header/app-header";
-
-import { Hero } from './components/app-hero/app-hero';
+import { AppHeaderComponent } from './components/app-header/app-header';
 import { Footer } from './components/app-footer/app-footer';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet, 
-    AppHeader, 
-    Hero, 
-    Footer
-  ],
+  imports: [RouterOutlet, AppHeaderComponent, Footer],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('ppw-angular-practica');
-  isLoggedIn = false;
-
-  materias = [
-    'Programacion',
-    'Estructura de Datos',
-    'DataBase'
-  ];
+  title = 'ppw-angular-21';
 }

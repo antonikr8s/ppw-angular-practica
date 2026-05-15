@@ -1,0 +1,33 @@
+.detail-page {
+  padding: 1rem 0;
+}
+
+.detail-page__title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.detail-page__id {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #c3002f;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.btn-back {
+  display: flex;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  color: #c3002f;
+  text-decoration: none;
+  border: 1px solid #c3002f;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-back:hover {
+  background-color: #c3002f;
+  color: white;
+}
