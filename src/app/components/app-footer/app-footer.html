@@ -1,13 +1,32 @@
-<footer class="footer">
+<footer class="mt-auto w-full bg-slate-900 py-8 px-6 text-slate-300">
+  <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-6 md:flex-row">
+    
+    <div class="text-center md:text-left">
+      <h2 class="text-lg font-bold tracking-widest text-white">
+        {{ title() | uppercase }}
+      </h2>
+      <p class="mt-1 text-sm text-slate-400">
+        {{ message() }}
+      </p>
+    </div>
 
-    <h2>{{ title() | uppercase }}</h2>
+    <div class="flex flex-wrap justify-center gap-6 text-sm md:justify-end md:gap-8">
+      
+      <div class="flex flex-col text-center md:text-right">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Fecha Ingreso</span>
+        <span class="font-medium text-slate-200">{{ today() | date:'shortDate' }}</span>
+      </div>
 
-    <p>{{ message() | lowercase }}</p>
+      <div class="flex flex-col text-center md:text-right">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Total</span>
+        <span class="font-medium text-emerald-400">{{ price() | currency }}</span>
+      </div>
 
-    <p>Fecha: {{ today() | date:'shortDate' }}</p>
+      <div class="flex flex-col text-center md:text-right">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Progreso</span>
+        <span class="font-medium text-sky-400">{{ percent() | percent }}</span>
+      </div>
 
-    <p>Total: {{ price() | currency }}</p>
-
-    <p>{{ percent() | percent }}</p>
-
+    </div>
+  </div>
 </footer>

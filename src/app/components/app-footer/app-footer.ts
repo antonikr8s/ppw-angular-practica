@@ -1,6 +1,5 @@
 import {
   UpperCasePipe,
-  LowerCasePipe,
   DatePipe,
   CurrencyPipe,
   PercentPipe
@@ -11,7 +10,6 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
   selector: 'app-footer',
   imports: [
     UpperCasePipe,
-    LowerCasePipe,
     DatePipe,
     CurrencyPipe,
     PercentPipe
@@ -23,7 +21,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 export class Footer {
 
   readonly title = signal('Footer Angular');
-  readonly message = signal('Este es mi Footer');
+  readonly message = signal('Estudiante: Carlos Antonio Gordillo Tenemaza');
   readonly today = signal(new Date());
   readonly price = signal(200);
   readonly percent = signal(0.75);
