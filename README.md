@@ -1,63 +1,100 @@
-# Capturas de Pantalla
+# Práctica 04: Estilos y Layout con Tailwind
 
-![Captura del proyecto](src/app/assets/01-local.png)
+## 📌 Información General
 
-# PpwAngularPractica
+- **Título:** Estilos y Layout con Tailwind
+- **Asignatura:** Programación y Plataformas Web
+- **Carrera:** Ingeniería en Computación
+- **Estudiante:** Carlos Antonio Gordillo Tenemaza
+- **Semestre:** 5to Semestre
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+## 🛠️ Descripción
 
-## Development server
+Este proyecto demuestra la refactorización de una aplicación web construida en Angular 21, migrando de CSS tradicional (archivos independientes por componente) a un enfoque de diseño atómico utilizando **TailwindCSS**. 
 
-To start a local development server, run:
+El proyecto elimina las clases CSS globales y aplica utilidades directamente en las plantillas HTML para manejar colores de marca, tipografía, espacios y diseño responsivo. Además, se incluye una nueva sección dedicada exclusivamente a explorar arquitecturas avanzadas de diseño web utilizando **CSS Grid** y **Flexbox** para la construcción de interfaces modernas y escalables.
 
-```bash
-ng serve
+---
+
+## 💻 Fragmentos de Código Destacado
+
+### 1. Configuración de Tokens de Marca (Tailwind Global)
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #0f4c81;
+  --color-brand-strong: #0a3356;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased;
+  }
+}
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### 2. Refactorización del Shell Principal (`App Component`)
+```html
+<div class="flex min-h-screen flex-col bg-slate-100">
+  <app-header />
+  <main class="flex-1 mx-auto w-full max-w-5xl px-6 py-8">
+    <router-outlet />
+  </main>
+  <app-footer />
+</div>
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+### 3. Layout: Grid con Subgrid
+```html
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <h3 class="col-span-1 md:col-span-3 text-lg font-bold">Grid padre</h3>
+  <div class="col-span-1 md:col-span-3 grid grid-cols-1 md:grid-cols-subgrid gap-4 mt-2">
+    </div>
+</div>
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+### 4. Layout: Flexbox con Carrusel (Desplazamiento Horizontal)
+```html
+<div class="flex gap-4 overflow-x-auto pb-2">
+  <article class="min-w-[16rem] shrink-0 rounded-2xl bg-linear-to-br from-sky-400 to-blue-600 p-5 shadow-md">
+     </article>
+</div>
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 🧑‍💻 Capturas de Pantalla
 
-```bash
-ng test
-```
+### 1. Aplicación Refactorizada Base
+**Descripción:** Interfaz de las páginas HomePage y StudentsPage adaptadas 100% con utilidades de Tailwind. Se evidencia la desaparición de los archivos .css y la aplicación de tokens de marca, sombras y ritmo vertical.
 
-## Running end-to-end tests
+![Vista Base](./src/app/assets/01-local.png)
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
+### 2. Card básica con sombra
+**Descripción:** Layout base usando shadow-xl y ring-1 ring-slate-200. Las cards tienen ancho fijo (w-56) y se reorganizan automáticamente según el espacio disponible. Es la estructura mínima: sin gradiente, solo sombra prominente para generar jerarquía visual.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+![Vista Layout](./src/app/assets/02-tw.png)
 
-## Additional Resources
+### 3. Cards con gradiente
+**Descripción:** Variante de cards que combina gradientes (bg-linear-to-br) con sombra. El gradiente añade profundidad visual sin necesidad de bordes ni imágenes. Se usa from-* y to-* para definir los colores de inicio y fin del degradado.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+![Vista Gradiente](./src/app/assets/03-con-gradiente.png)
+
+### 4. Grid subgrid
+**Descripción:** Layout usando grid-cols-3 en el padre y col-span-3 grid-cols-subgrid en un hijo. La segunda fila hereda los tracks de columnas del padre gracias a subgrid, logrando que los items hijos se alineen perfectamente con la cuadrícula superior sin necesidad de definir nuevas columnas.
+
+![Vista Grid](./src/app/assets/04-grid-subgrid.png)
+
+### 5. Grid rows + row-span
+**Descripción:** Layout con grid-rows-3 grid-flow-col donde un item usa row-span-3 para ocupar toda la altura de la columna. Los demás items combinan col-span-2 y row-span-2 para crear una distribución asimétrica que genera jerarquía visual sin CSS adicional.
+
+![Vista Rows](./src/app/assets/05-grid-rows.png)
+
+### 6. Flex columna → fila
+**Descripción:** Layout con flex flex-col md:flex-row que demuestra el enfoque mobile-first de Tailwind. En pantallas pequeñas los items se apilan verticalmente; en pantallas medianas (md:) se distribuyen en fila horizontal. Cada item usa flex-1 para repartir el espacio disponible de forma equitativa.
+
+![Vista Flex](./src/app/assets/06-flex.png)
