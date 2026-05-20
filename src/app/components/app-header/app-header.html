@@ -3,29 +3,24 @@
   <span class="app-header__brand">{{ brand() | uppercase }}</span>
 
   <nav class="app-header__nav">
-    <a class="nav-link"
-       routerLink="/"
-       routerLinkActive="nav-link--active"
-       [routerLinkActiveOptions]="{ exact: true }">
+    <a class="nav-link" routerLink="/" routerLinkActive="nav-link--active" [routerLinkActiveOptions]="{ exact: true }">
       Inicio
     </a>
 
-    <a class="nav-link"
-       routerLink="/students"
-       routerLinkActive="nav-link--active">
+    <a class="nav-link" routerLink="/students" routerLinkActive="nav-link--active">
       Estudiantes
     </a>
 
-    <a class="nav-link"
-       routerLink="/layouts"
-       routerLinkActive="nav-link--active">
+    <a class="nav-link" routerLink="/layouts" routerLinkActive="nav-link--active">
       Layouts
     </a>
 
-    <a class="nav-link"
-       routerLink="/singup-page"
-       routerLinkActive="nav-link--active">
+    <a class="nav-link" routerLink="/singup-page" routerLinkActive="nav-link--active">
       Sing up
+    </a>
+
+    <a class="nav-link" routerLink="/profile" routerLinkActive="nav-link--active">
+      Perfil
     </a>
   </nav>
 
