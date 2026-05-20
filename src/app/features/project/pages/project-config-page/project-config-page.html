@@ -1,0 +1,126 @@
+<section class="space-y-10 pb-10">
+    <header class="space-y-3">
+        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Proyecto</p>
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+            Configuración del proyecto
+        </h1>
+        <p class="max-w-2xl leading-7 text-slate-600">
+            Define la arquitectura y añade los lenguajes dinámicamente.
+        </p>
+    </header>
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="max-w-md space-y-4">
+
+        <div class="space-y-2">
+            <label for="nombre" class="block text-sm font-semibold">Nombre del proyecto</label>
+            <input id="nombre" type="text" formControlName="nombre" placeholder="Mi proyecto increíble"
+                class="w-full rounded-sm border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-sky-50 focus:ring-2 focus:ring-sky-200" />
+
+            @if (formUtils.isValidField(myForm, 'nombre')) {
+            <p class="text-sm text-red-600">{{ formUtils.getFieldError(myForm, 'nombre') }}</p>
+            }
+        </div>
+
+        <hr class="my-6 border-slate-200">
+
+        <div class="space-y-2">
+            <label class="block text-sm font-semibold">Agregar lenguaje de programación</label>
+            <div class="flex gap-2">
+                <input type="text" [formControl]="newLenguaje" placeholder="Ej: Python, Java, Go..."
+                    (keydown.enter)="onAddLenguaje(); $event.preventDefault()"
+                    class="flex-1 rounded-sm border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-sky-50 focus:ring-2 focus:ring-sky-200" />
+                <button type="button" (click)="onAddLenguaje()" [disabled]="newLenguaje.invalid"
+                    class="rounded-md bg-emerald-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50">
+                    Agregar
+                </button>
+            </div>
+
+            @if (newLenguaje.touched && newLenguaje.invalid) {
+            <p class="text-sm text-red-600">Mínimo 3 caracteres para agregar</p>
+            }
+        </div>
+
+        <div class="space-y-3 rounded-md bg-slate-50 p-4 border border-slate-200" formArrayName="lenguajes">
+            <label class="block text-sm font-semibold text-slate-700">
+                Lenguajes actuales (mínimo 2)
+            </label>
+
+            @for(control of lenguajes.controls; track control; let i = $index) {
+            <div class="flex gap-2 items-start mt-2">
+                <input [formControlName]="i"
+                    class="flex-1 rounded-sm border border-slate-300 px-3 py-2 text-slate-900 focus:border-sky-50 focus:ring-2 focus:ring-sky-200" />
+                <button type="button" (click)="onDeleteLenguaje(i)"
+                    class="rounded-md bg-red-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-red-700">
+                    Eliminar
+                </button>
+            </div>
+
+            @if (formUtils.isValidFieldInArray(lenguajes, i)) {
+            <p class="text-sm text-red-600">{{ formUtils.getFieldErrorInArray(lenguajes, i) }}</p>
+            }
+            }
+
+            @if (formUtils.isValidField(myForm, 'lenguajes')) {
+            <p class="text-sm text-red-600 font-medium">Debe mantener al menos 2 lenguajes en la lista</p>
+            }
+        </div>
+
+        <hr class="my-6 border-slate-200">
+
+        <div class="space-y-2">
+            <label class="block text-sm font-semibold">Tipo de proyecto</label>
+            <div class="flex gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" value="frontend" formControlName="tipo"
+                        class="h-4 w-4 border-slate-300 text-sky-600 focus:ring-sky-500" />
+                    <span class="text-sm text-slate-700">Frontend</span>
+                </label>
+
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" value="backend" formControlName="tipo"
+                        class="h-4 w-4 border-slate-300 text-sky-600 focus:ring-sky-500" />
+                    <span class="text-sm text-slate-700">Backend</span>
+                </label>
+
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" value="fullstack" formControlName="tipo"
+                        class="h-4 w-4 border-slate-300 text-sky-600 focus:ring-sky-500" />
+                    <span class="text-sm text-slate-700">Fullstack</span>
+                </label>
+            </div>
+
+            @if (formUtils.isValidField(myForm, 'tipo')) {
+            <p class="text-sm text-red-600">{{ formUtils.getFieldError(myForm, 'tipo') }}</p>
+            }
+        </div>
+
+        <div class="flex items-center gap-3 py-2">
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" formControlName="notificaciones" class="sr-only peer" />
+                <div
+                    class="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-sky-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-600">
+                </div>
+            </label>
+            <span class="text-sm text-slate-700 font-medium">Recibir notificaciones del proyecto</span>
+        </div>
+
+        <div class="space-y-2 pb-4">
+            <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" formControlName="terminosAceptados"
+                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500" />
+                <span class="text-sm text-slate-700">
+                    Acepto los términos y condiciones del proyecto
+                </span>
+            </label>
+
+            @if (formUtils.isValidField(myForm, 'terminosAceptados')) {
+            <p class="text-sm text-red-600">{{ formUtils.getFieldError(myForm, 'terminosAceptados') }}</p>
+            }
+        </div>
+
+        <button type="submit" [disabled]="myForm.invalid || lenguajes.length < 2"
+            class="mt-4 w-full rounded-md bg-sky-700 px-4 py-2 font-semibold text-white transition-colors hover:bg-sky-800 disabled:bg-slate-300 disabled:cursor-not-allowed">
+            Guardar configuración
+        </button>
+    </form>
+</section>

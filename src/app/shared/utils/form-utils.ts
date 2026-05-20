@@ -29,6 +29,8 @@ export class FormUtils {
       switch (key) {
         case 'required':
           return 'Este campo es requerido';
+        case 'requiredTrue': 
+          return 'Debe aceptar los términos para continuar';
         case 'minlength':
           return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
         case 'maxlength':

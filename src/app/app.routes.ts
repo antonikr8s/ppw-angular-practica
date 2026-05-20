@@ -5,6 +5,7 @@ import { StudentDetailPage } from './features/students/pages/students-detail-pag
 import { LayoutsPage } from './features/layout/pages/layouts-page';
 import { SingupPage } from './features/singup/pages/singup-page';
 import { ProfilePage } from './features/profile/pages/profile-page/profile-page';
+import { ProjectConfigPage } from './features/project/pages/project-config-page/project-config-page'; 
 
 export const routes: Routes = [
   { path: '', component: HomePage },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'students/:id', component: StudentDetailPage },
   { path: 'layouts', component: LayoutsPage }, 
   { path: 'singup-page', component: SingupPage },
-  { path: 'profile', component: ProfilePage }, 
+  { path: 'profile', component: ProfilePage },
+  { path: 'project-config', component: ProjectConfigPage }, 
   { path: '**', redirectTo: '' },
 ];

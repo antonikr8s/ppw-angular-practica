@@ -1,8 +1,8 @@
-# Práctica 04: Estilos y Layout con Tailwind
+# Práctica 05: Formularios Reactivos Avanzados en Angular
 
 ## 📌 Información General
 
-- **Título:** Estilos y Layout con Tailwind
+- **Título:** Formularios Reactivos (A, B y C)
 - **Asignatura:** Programación y Plataformas Web
 - **Carrera:** Ingeniería en Computación
 - **Estudiante:** Carlos Antonio Gordillo Tenemaza
@@ -11,90 +11,106 @@
 
 ## 🛠️ Descripción
 
-Este proyecto demuestra la refactorización de una aplicación web construida en Angular 21, migrando de CSS tradicional (archivos independientes por componente) a un enfoque de diseño atómico utilizando **TailwindCSS**. 
+Este proyecto aborda el diseño y construcción de formularios reactivos avanzados y dinámicos utilizando **Angular 21**. Se divide en tres fases incrementales para demostrar las mejores prácticas en el manejo de datos, validaciones e interfaces de usuario:
 
-El proyecto elimina las clases CSS globales y aplica utilidades directamente en las plantillas HTML para manejar colores de marca, tipografía, espacios y diseño responsivo. Además, se incluye una nueva sección dedicada exclusivamente a explorar arquitecturas avanzadas de diseño web utilizando **CSS Grid** y **Flexbox** para la construcción de interfaces modernas y escalables.
+* Fase A (Sign up): Implementación de validadores personalizados cruzados (verificación de contraseñas) y validadores asíncronos simulando consultas a una base de datos mediante operadores de RxJS (`of, delay, map`).
+
+* Fase B (Perfil): Aplicación del principio DRY mediante la refactorización del código repetitivo. Se desarrolló una clase utilitaria centralizada (`FormUtils`) para abstraer la lógica de validación y la traducción dinámica de códigos de error a mensajes legibles.
+
+* Fase C (Configuración de Proyecto): Creación de un formulario complejo que integra FormArray para la inserción y eliminación dinámica de elementos (lenguajes de programación), además de la gestión de controles especiales de interfaz como botones de radio, switches booleanos y checkboxes de aceptación obligatoria.
 
 ---
 
 ## 💻 Fragmentos de Código Destacado
 
-### 1. Configuración de Tokens de Marca (Tailwind Global)
-```css
-@import "tailwindcss";
-
-@theme {
-  --color-brand: #0f4c81;
-  --color-brand-strong: #0a3356;
+### 1. Validador Asíncrono con RxJS (Fase A)
+```typeScript
+export function emailUniqueValidator(): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    const correosTomados = ['test@test.com', 'admin@admin.com', 'cagordillot@email.com'];
+    return of(control.value).pipe(
+      delay(500), 
+      map((email: string) => {
+        return correosTomados.includes(email) ? { emailTaken: true } : null;
+      })
+    );
+  };
 }
+```
 
-@layer base {
-  body {
-    @apply bg-slate-100 text-slate-900 antialiased;
+### 2. Centralización de Errores con Helper Class (Fase B)
+```typeScript
+static getFieldError(form: FormGroup, fieldName: string): string | null {
+    const control = form.controls[fieldName];
+    if (!control) return null;
+
+    const errors = control.errors ?? {};
+    return FormUtils.getTextError(errors);
   }
-}
 ```
 
-### 2. Refactorización del Shell Principal (`App Component`)
-```html
-<div class="flex min-h-screen flex-col bg-slate-100">
-  <app-header />
-  <main class="flex-1 mx-auto w-full max-w-5xl px-6 py-8">
-    <router-outlet />
-  </main>
-  <app-footer />
-</div>
+### 3. Inserción Dinámica en FormArray (Fase C)
+```typeScript
+onAddLenguaje() {
+    if (this.newLenguaje.invalid) return;
+    
+    this.lenguajes.push(
+      this.fb.control(this.newLenguaje.value, [
+        Validators.required,
+        Validators.minLength(3)
+      ])
+    );
+    this.newLenguaje.reset();
+  }
 ```
-
-### 3. Layout: Grid con Subgrid
-```html
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <h3 class="col-span-1 md:col-span-3 text-lg font-bold">Grid padre</h3>
-  <div class="col-span-1 md:col-span-3 grid grid-cols-1 md:grid-cols-subgrid gap-4 mt-2">
-    </div>
-</div>
-```
-
-### 4. Layout: Flexbox con Carrusel (Desplazamiento Horizontal)
-```html
-<div class="flex gap-4 overflow-x-auto pb-2">
-  <article class="min-w-[16rem] shrink-0 rounded-2xl bg-linear-to-br from-sky-400 to-blue-600 p-5 shadow-md">
-     </article>
-</div>
-```
-
 
 ---
 
-## 🧑‍💻 Capturas de Pantalla
+## 🧑‍💻 Capturas de Pantalla Parte A (Sign up)
 
-### 1. Aplicación Refactorizada Base
-**Descripción:** Interfaz de las páginas HomePage y StudentsPage adaptadas 100% con utilidades de Tailwind. Se evidencia la desaparición de los archivos .css y la aplicación de tokens de marca, sombras y ritmo vertical.
+### 1. Formulario con todos los errores activos
+**Descripción:** Comprobación del estado INVALID general del formulario. Se muestran las validaciones síncronas estándar (required, minlength) interactuando simultáneamente con el validador cruzado (passwordMismatch).
 
-![Vista Base](./src/app/assets/01-local.png)
+![Vista Singup](./src/app/assets/07A-error.png)
 
 
-### 2. Card básica con sombra
-**Descripción:** Layout base usando shadow-xl y ring-1 ring-slate-200. Las cards tienen ancho fijo (w-56) y se reorganizan automáticamente según el espacio disponible. Es la estructura mínima: sin gradiente, solo sombra prominente para generar jerarquía visual.
+### 2. Validador asíncrono en ejecución
+**Descripción:** Captura del input de correo reaccionando a un correo simulado como "ya registrado". Demuestra la transición del estado PENDING al error emailTaken evaluado mediante latencia simulada.
 
-![Vista Layout](./src/app/assets/02-tw.png)
+![Vista Base](./src/app/assets/07B-password.png)
 
-### 3. Cards con gradiente
-**Descripción:** Variante de cards que combina gradientes (bg-linear-to-br) con sombra. El gradiente añade profundidad visual sin necesidad de bordes ni imágenes. Se usa from-* y to-* para definir los colores de inicio y fin del degradado.
 
-![Vista Gradiente](./src/app/assets/03-con-gradiente.png)
+## 🧑‍💻 Capturas de Pantalla Parte B (Perfil y FormUtils)
 
-### 4. Grid subgrid
-**Descripción:** Layout usando grid-cols-3 en el padre y col-span-3 grid-cols-subgrid en un hijo. La segunda fila hereda los tracks de columnas del padre gracias a subgrid, logrando que los items hijos se alineen perfectamente con la cuadrícula superior sin necesidad de definir nuevas columnas.
+### 3. Formulario vacío en estado inicial
+**Descripción:** Renderizado inicial de la vista de Perfil. Muestra una interfaz limpia y simétrica donde el botón de "Guardar perfil" se encuentra correctamente bloqueado por el estado inválido del formulario.
 
-![Vista Grid](./src/app/assets/04-grid-subgrid.png)
+![Vista Base](./src/app/assets/08A-vacio.png)
 
-### 5. Grid rows + row-span
-**Descripción:** Layout con grid-rows-3 grid-flow-col donde un item usa row-span-3 para ocupar toda la altura de la columna. Los demás items combinan col-span-2 y row-span-2 para crear una distribución asimétrica que genera jerarquía visual sin CSS adicional.
+### 4. Errores renderizados por FormUtils
+**Descripción:** El formulario intercepta la función submit con campos inválidos y ejecuta markAllAsTouched(). Todos los mensajes en pantalla son proveídos dinámicamente por la clase utilitaria FormUtils.
 
-![Vista Rows](./src/app/assets/05-grid-rows.png)
+![Vista Base](./src/app/assets/08B-error.png)
 
-### 6. Flex columna → fila
-**Descripción:** Layout con flex flex-col md:flex-row que demuestra el enfoque mobile-first de Tailwind. En pantallas pequeñas los items se apilan verticalmente; en pantallas medianas (md:) se distribuyen en fila horizontal. Cada item usa flex-1 para repartir el espacio disponible de forma equitativa.
+## 🧑‍💻 Capturas de Pantalla Parte C (Formulario Dinámico)
 
-![Vista Flex](./src/app/assets/06-flex.png)
+### 5. Configuración de proyecto - Estado inicial
+**Descripción:** Vista inicial del formulario complejo. Se evidencia el control independiente para agregar lenguajes y el renderizado por defecto del FormArray con "JavaScript" y "TypeScript" inicializados.
+
+![Vista Base](./src/app/assets/09A-vacio.png)
+
+### 6. Controles especiales y validación dinámica
+**Descripción:** Ejecución de errores complejos. Se muestra el requerimiento de selección de Radio Buttons, el error de validación de checkbox obligatorio (requiredTrue) y la alerta dinámica de longitud mínima cuando el FormArray posee menos de dos lenguajes.
+
+![Vista Base](./src/app/assets/09B-error-validacion.png)
+
+### 7. Formulario válido y completo
+**Descripción:** Estado satisfactorio del formulario interactivo. Array dinámico poblado correctamente, checkbox aceptado y campos de texto validados, provocando la habilitación del botón de envío final.
+
+![Vista Base](./src/app/assets/09C-valido.png)
+
+### 8. Salida de datos serializados (Consola)
+**Descripción:** Captura de la consola del navegador demostrando la extracción de los datos. Se comprueba que los valores estáticos, el FormArray y los booleanos (del switch y checkbox) se consolidan correctamente en un solo objeto JSON listo para una API.
+
+![Vista Base](./src/app/assets/09D-console.png)
+
