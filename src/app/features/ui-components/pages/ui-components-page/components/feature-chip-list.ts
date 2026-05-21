@@ -1,0 +1,21 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+
+@Component({
+  selector: 'app-feature-chip-list',
+  standalone: true,
+  template: `
+    <div class="rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm">
+      <p class="text-sm font-bold text-slate-800">{{ title() }}</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        @for (item of chips(); track item) {
+          <span class="badge badge-outline px-3 py-3 text-xs font-semibold">{{ item }}</span>
+        }
+      </div>
+    </div>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class FeatureChipList {
+  title = input<string>('Características');
+  chips = input<string[]>([]);
+}
