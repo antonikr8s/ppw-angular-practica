@@ -8,15 +8,11 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
-  imports: [
-    UpperCasePipe,
-    DatePipe,
-    CurrencyPipe,
-    PercentPipe
-  ],
-  templateUrl: './app-footer.html', 
-  styleUrl: './app-footer.css',     
-  changeDetection: ChangeDetectionStrategy.OnPush, 
+  standalone: true,
+  imports: [], 
+  templateUrl: './app-footer.html',
+  styleUrl: './app-footer.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Footer {
 

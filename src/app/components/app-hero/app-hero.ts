@@ -1,21 +1,28 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { UpperCasePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-hero',
-  imports: [UpperCasePipe],
+  standalone: true,
+  imports: [],
   templateUrl: './app-hero.html', 
   styleUrl: './app-hero.css',     
   changeDetection: ChangeDetectionStrategy.OnPush, 
 })
 export class Hero {
-  readonly title = signal('Componentes Standalone Reutilizables');
-  readonly topics = signal(['signals', 'computed', '@if', '@for', '@switch', 'pipes']);
-  readonly subtitle = computed(() => `Temas activos: ${this.topics().length}`);
+  readonly technologies = signal(['Angular', 'React', 'Spring Boot', 'PostgreSQL', 'TypeScript']);
 
-  readonly viewMode = signal<'lista' | 'resumen'>('lista');
-
-  toggleMode(): void {
-    this.viewMode.update((m) => (m === 'lista' ? 'resumen' : 'lista'));
-  }
+  readonly experiences = signal([
+    {
+      year: '2025 - PRESENTE',
+      company: 'Territorios Inteligentes IT',
+      role: 'Software Engineer (Prácticas)',
+      description: 'Reestructuración de servicios web REST/SOAP, optimización de consultas Oracle y rediseño UI/UX del Portal Ciudadano garantizando alta eficiencia.'
+    },
+    {
+      year: '2023 - 2024',
+      company: 'Banco del Austro',
+      role: 'Programador Junior',
+      description: 'Mantenimiento de funcionalidades internas, análisis y debugging de sistemas en el entorno de desarrollo bancario.'
+    }
+  ]);
 }
