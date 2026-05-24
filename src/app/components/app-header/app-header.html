@@ -1,32 +1,33 @@
-<header class="max-lg:collapse bg-base-100 shadow-sm w-full rounded-md z-50">
+<header class="max-lg:collapse bg-[#0b132b] text-white shadow-sm w-full rounded-md z-50">
   <input id="navbar-toggle" class="peer hidden" type="checkbox" />
   <label for="navbar-toggle" class="fixed inset-0 hidden max-lg:peer-checked:block"></label>
 
   <div class="collapse-title navbar px-4">
     <div class="navbar-start">
-      <label for="navbar-toggle" class="btn btn-ghost lg:hidden">
+      <label for="navbar-toggle" class="btn btn-ghost lg:hidden text-white">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
       </label>
-      <a class="btn btn-ghost text-xl tracking-widest font-bold" routerLink="/">PPW ANGULAR</a>
+      <a class="btn btn-ghost text-xl tracking-widest font-bold text-white hover:bg-white/10" routerLink="/">PPW ANGULAR</a>
     </div>
 
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
-        <li><a routerLink="/" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
-        <li><a routerLink="/students" routerLinkActive="menu-active">Estudiantes</a></li>
-        <li><a routerLink="/layouts" routerLinkActive="menu-active">Layouts</a></li>
+        <li><a class="hover:bg-white/10" routerLink="/" routerLinkActive="bg-white/20" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+        <li><a class="hover:bg-white/10" routerLink="/students" routerLinkActive="bg-white/20">Estudiantes</a></li>
+        <li><a class="hover:bg-white/10" routerLink="/layouts" routerLinkActive="bg-white/20">Layouts</a></li>
+        <li><a class="hover:bg-white/10" routerLink="/ui-components" routerLinkActive="bg-white/20">UI Components</a></li>
         
-        <li><a routerLink="/ui-components" routerLinkActive="menu-active">UI Components</a></li>
+        <li><a class="hover:bg-white/10" routerLink="/simpsons" routerLinkActive="bg-white/20">Simpsons</a></li>
         
         <li>
           <details>
-            <summary>Formularios</summary>
-            <ul class="p-2 bg-base-100 rounded-box shadow z-50">
-              <li><a routerLink="/singup-page" routerLinkActive="menu-active">Sign up</a></li>
-              <li><a routerLink="/profile" routerLinkActive="menu-active">Perfil</a></li>
-              <li><a routerLink="/project-config" routerLinkActive="menu-active">Configurar Proyecto</a></li>
+            <summary class="hover:bg-white/10">Formularios</summary>
+            <ul class="p-2 bg-white text-slate-900 rounded-box shadow-xl z-50 min-w-[180px]">
+              <li><a routerLink="/singup-page" routerLinkActive="font-bold text-sky-700 bg-slate-100">Sign up</a></li>
+              <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
+              <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
             </ul>
           </details>
         </li>
@@ -36,20 +37,21 @@
   </div>
 
   <div class="collapse-content lg:hidden z-10">
-    <ul class="menu rounded-box bg-base-200">
-      <li><a routerLink="/" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
-      <li><a routerLink="/students" routerLinkActive="menu-active">Estudiantes</a></li>
-      <li><a routerLink="/layouts" routerLinkActive="menu-active">Layouts</a></li>
+    <ul class="menu rounded-box bg-[#0b132b] text-white">
+      <li><a class="hover:bg-white/10" routerLink="/" routerLinkActive="bg-white/20" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+      <li><a class="hover:bg-white/10" routerLink="/students" routerLinkActive="bg-white/20">Estudiantes</a></li>
+      <li><a class="hover:bg-white/10" routerLink="/layouts" routerLinkActive="bg-white/20">Layouts</a></li>
+      <li><a class="hover:bg-white/10" routerLink="/ui-components" routerLinkActive="bg-white/20">UI Components</a></li>
       
-      <li><a routerLink="/ui-components" routerLinkActive="menu-active">UI Components</a></li>
+      <li><a class="hover:bg-white/10" routerLink="/simpsons" routerLinkActive="bg-white/20">Simpsons</a></li>
       
       <li>
         <details>
-          <summary>Formularios</summary>
-          <ul>
-            <li><a routerLink="/singup-page" routerLinkActive="menu-active">Sign up</a></li>
-            <li><a routerLink="/profile" routerLinkActive="menu-active">Perfil</a></li>
-            <li><a routerLink="/project-config" routerLinkActive="menu-active">Configurar Proyecto</a></li>
+          <summary class="hover:bg-white/10">Formularios</summary>
+          <ul class="bg-white text-slate-900 rounded-box mt-2">
+            <li><a routerLink="/singup-page" routerLinkActive="font-bold text-sky-700 bg-slate-100">Sign up</a></li>
+            <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
+            <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
           </ul>
         </details>
       </li>
