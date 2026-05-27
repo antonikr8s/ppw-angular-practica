@@ -33,7 +33,23 @@
         </li>
       </ul>
     </div>
-    <div class="navbar-end"></div>
+    <div class="navbar-end gap-2">
+      @if (currentUser()) {
+        <span class="hidden text-sm text-sky-200 lg:block font-bold">
+          {{ currentUser()!.email }}
+        </span>
+
+        <button class="btn btn-ghost text-white hover:bg-white/10 btn-sm" (click)="logout()">
+          Cerrar sesión
+        </button>
+      } @else {
+        <a class="btn bg-sky-600 hover:bg-sky-500 text-white border-none btn-sm" routerLink="/auth">
+          Iniciar sesión
+        </a>
+      }
+    </div>
+
+
   </div>
 
   <div class="collapse-content lg:hidden z-10">
