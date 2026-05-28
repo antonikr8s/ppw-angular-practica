@@ -7,8 +7,10 @@ import { SingupPage } from './features/singup/pages/singup-page';
 import { ProfilePage } from './features/profile/pages/profile-page/profile-page';
 import { ProjectConfigPage } from './features/project/pages/project-config-page/project-config-page';
 import { UiComponentsPage } from './features/ui-components/pages/ui-components-page/ui-components-page';
-
 import { AuthPageComponent } from './features/auth/pages/auth-page/auth-page';
+
+import { authGuard } from './core/guards/auth-guard';
+import { guestGuard } from './core/guards/guest-guard';
 
 export const routes: Routes = [
   { path: '', component: HomePage },
@@ -16,16 +18,16 @@ export const routes: Routes = [
   { path: 'students/:id', component: StudentDetailPage },
   { path: 'layouts', component: LayoutsPage },
   { path: 'singup-page', component: SingupPage },
-  { path: 'profile', component: ProfilePage },
-  { path: 'project-config', component: ProjectConfigPage },
   { path: 'ui-components', component: UiComponentsPage },
-  
   {
     path: 'simpsons',
     loadComponent: () => import('./features/simpsons/pages/simpsons-page/simpsons-page').then(m => m.SimpsonsPageComponent)
   },
   
-  { path: 'auth', component: AuthPageComponent },
+  { path: 'profile', component: ProfilePage, canActivate: [authGuard] },
+  { path: 'project-config', component: ProjectConfigPage, canActivate: [authGuard] },
+  
+  { path: 'auth', component: AuthPageComponent, canActivate: [guestGuard] },
   
   { path: '**', redirectTo: '' }
 ];

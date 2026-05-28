@@ -18,7 +18,6 @@
         <li><a class="hover:bg-white/10" routerLink="/students" routerLinkActive="bg-white/20">Estudiantes</a></li>
         <li><a class="hover:bg-white/10" routerLink="/layouts" routerLinkActive="bg-white/20">Layouts</a></li>
         <li><a class="hover:bg-white/10" routerLink="/ui-components" routerLinkActive="bg-white/20">UI Components</a></li>
-        
         <li><a class="hover:bg-white/10" routerLink="/simpsons" routerLinkActive="bg-white/20">Simpsons</a></li>
         
         <li>
@@ -26,19 +25,22 @@
             <summary class="hover:bg-white/10">Formularios</summary>
             <ul class="p-2 bg-white text-slate-900 rounded-box shadow-xl z-50 min-w-[180px]">
               <li><a routerLink="/singup-page" routerLinkActive="font-bold text-sky-700 bg-slate-100">Sign up</a></li>
-              <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
-              <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
+              
+              @if (currentUser()) {
+                <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
+                <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
+              }
             </ul>
           </details>
         </li>
       </ul>
     </div>
+    
     <div class="navbar-end gap-2">
       @if (currentUser()) {
         <span class="hidden text-sm text-sky-200 lg:block font-bold">
           {{ currentUser()!.email }}
         </span>
-
         <button class="btn btn-ghost text-white hover:bg-white/10 btn-sm" (click)="logout()">
           Cerrar sesión
         </button>
@@ -48,8 +50,6 @@
         </a>
       }
     </div>
-
-
   </div>
 
   <div class="collapse-content lg:hidden z-10">
@@ -58,7 +58,6 @@
       <li><a class="hover:bg-white/10" routerLink="/students" routerLinkActive="bg-white/20">Estudiantes</a></li>
       <li><a class="hover:bg-white/10" routerLink="/layouts" routerLinkActive="bg-white/20">Layouts</a></li>
       <li><a class="hover:bg-white/10" routerLink="/ui-components" routerLinkActive="bg-white/20">UI Components</a></li>
-      
       <li><a class="hover:bg-white/10" routerLink="/simpsons" routerLinkActive="bg-white/20">Simpsons</a></li>
       
       <li>
@@ -66,8 +65,11 @@
           <summary class="hover:bg-white/10">Formularios</summary>
           <ul class="bg-white text-slate-900 rounded-box mt-2">
             <li><a routerLink="/singup-page" routerLinkActive="font-bold text-sky-700 bg-slate-100">Sign up</a></li>
-            <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
-            <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
+            
+            @if (currentUser()) {
+              <li><a routerLink="/profile" routerLinkActive="font-bold text-sky-700 bg-slate-100">Perfil</a></li>
+              <li><a routerLink="/project-config" routerLinkActive="font-bold text-sky-700 bg-slate-100">Configurar Proyecto</a></li>
+            }
           </ul>
         </details>
       </li>
