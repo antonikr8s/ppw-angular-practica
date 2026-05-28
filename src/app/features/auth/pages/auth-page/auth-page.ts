@@ -1,8 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-// Importación ajustada al nombre exacto de tu archivo
 import { AuthService } from '../../../../core/services/auth';
 
 @Component({
@@ -16,19 +14,15 @@ export class AuthPageComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // true = mostrar login, false = mostrar registro.
   isLogin = signal(true);
-
   errorMessage = signal<string | null>(null);
   isLoading = signal(false);
 
-  // Un solo formulario sirve para ambos modos.
   authForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  // Alterna entre modo login y registro, limpiando errores previos.
   toggleMode() {
     this.isLogin.update((v) => !v);
     this.errorMessage.set(null);
@@ -42,14 +36,12 @@ export class AuthPageComponent {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    // Seleccionamos la acción según el modo activo.
     const action$ = this.isLogin()
       ? this.authService.login(email!, password!)
       : this.authService.register(email!, password!);
 
     action$.subscribe({
       next: () => {
-        // Tanto login como registro navegan a home al completarse.
         this.router.navigate(['/']);
       },
       error: () => {
@@ -60,6 +52,22 @@ export class AuthPageComponent {
         );
         this.isLoading.set(false);
       },
+    });
+  }
+
+  // NUEVO: Ejecuta el inicio de sesión con ventana emergente
+  loginWithGoogle() {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+    
+    this.authService.loginWithGoogle().subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.errorMessage.set('No se pudo iniciar sesión con Google. Intenta de nuevo.');
+        this.isLoading.set(false);
+      }
     });
   }
 }
